@@ -4,7 +4,8 @@ Changelog
 1.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Declare support for Python 3.13 and 3.14 in classifiers.
+  [remdub]
 
 
 1.2 (2024-10-21)
