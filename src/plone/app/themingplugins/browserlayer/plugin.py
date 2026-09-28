@@ -8,12 +8,11 @@ from zope.interface.interface import InterfaceClass
 
 import logging
 
-
 logger = logging.getLogger(__name__)
 
 
 @implementer(IThemePlugin)
-class BrowserLayerPlugin(object):
+class BrowserLayerPlugin:
     """This plugin dynamically creates a browser layer marker interface for
     this theme and applies it to the request when the theme is enabled.
 
@@ -32,9 +31,7 @@ class BrowserLayerPlugin(object):
     dependencies = ()
 
     def onDiscovery(self, theme, settings, dependenciesSettings):
-        layer = InterfaceClass(
-            theme, (Interface,), __module__=schemata.__name__
-        )
+        layer = InterfaceClass(theme, (Interface,), __module__=schemata.__name__)
         setattr(schemata, theme, layer)
 
     def onCreated(self, theme, settings, dependenciesSettings):

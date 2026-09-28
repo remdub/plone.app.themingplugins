@@ -9,12 +9,11 @@ import logging
 import os.path
 import z3c.jbot.metaconfigure
 
-
 logger = logging.getLogger(__name__)
 
 
 @implementer(IThemePlugin)
-class OverridesPlugin(object):
+class OverridesPlugin:
     """This plugin automatically registers a ``z3c.jbot`` style template
     overrides directory for the theme.
 
@@ -27,7 +26,7 @@ class OverridesPlugin(object):
     override the file ``some_template.pt`` in ``my.package.browser`` when
     the theme is in effect.
 
-    The directory and layer can be overriden in the manifest if required::
+    The directory and layer can be overridden in the manifest if required::
 
         [theme:overrides]
         directory = template-overrides
@@ -37,7 +36,7 @@ class OverridesPlugin(object):
     must already exist.
     """
 
-    dependencies = ('browserlayer',)
+    dependencies = ("browserlayer",)
 
     registered = {}
 
@@ -46,16 +45,16 @@ class OverridesPlugin(object):
         if res is None:
             return
 
-        directoryName = 'overrides'
-        if 'directory' in settings:
-            directoryName = settings['directory']
+        directoryName = "overrides"
+        if "directory" in settings:
+            directoryName = settings["directory"]
 
         if res.isDirectory(directoryName):
 
             layer = getattr(schemata, theme, None)
 
-            if 'layer' in settings:
-                layerName = settings['layer']
+            if "layer" in settings:
+                layerName = settings["layer"]
 
                 try:
                     layer = resolve(layerName)

@@ -14,7 +14,7 @@ class ThemingPlugins(PloneSandboxLayer):
         import plone.app.themingplugins.tests
 
         xmlconfig.file(
-            'configure.zcml',
+            "configure.zcml",
             plone.app.themingplugins.tests,
             context=configurationContext,
         )
@@ -26,7 +26,7 @@ class ThemingPlugins(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         # install into the Plone site
-        applyProfile(portal, 'plone.app.theming:default')
+        applyProfile(portal, "plone.app.theming:default")
 
 
 THEMINGPLUGINS_FIXTURE = ThemingPlugins()

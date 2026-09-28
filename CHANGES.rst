@@ -34,7 +34,7 @@ Breaking changes:
 - Fix parsing of views plugin settings
   [tlyng]
 
-- Add `Quick Example` section to REAMDE
+- Add `Quick Example` section to README
   [djowett]
 
 

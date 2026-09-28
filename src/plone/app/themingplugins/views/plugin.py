@@ -1,3 +1,4 @@
+from configparser import ConfigParser
 from plone.app.theming.interfaces import IThemePlugin
 from plone.app.theming.interfaces import THEME_RESOURCE_NAME
 from plone.app.themingplugins.browserlayer import schemata
@@ -11,7 +12,6 @@ import logging
 import os.path
 import Products.Five.browser.metaconfigure
 import zope.browsermenu.metaconfigure
-from configparser import ConfigParser
 
 EXTENSION = ".pt"
 VIEW_CONFIG_FILENAME = "views.cfg"
@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 
 @implementer(IThemePlugin)
-class ViewsPlugin(object):
+class ViewsPlugin:
     """This plugin can be used to register any number of browser views from
     a directory containing page templates.
 
@@ -52,7 +52,7 @@ class ViewsPlugin(object):
     * ``name``, to change the view name
     * ``permission``, to give a different permission name
     * ``for``, to change the view's context
-    * ``class``, to let the view re-use an existing class
+    * ``class``, to let the view reuse an existing class
 
     For example::
 
@@ -66,7 +66,7 @@ class ViewsPlugin(object):
     All options are optional, as is the ``views.cfg`` file itself.
     """
 
-    dependencies = ('browserlayer',)
+    dependencies = ("browserlayer",)
 
     registered = {}
 
@@ -75,17 +75,17 @@ class ViewsPlugin(object):
         if res is None:
             return
 
-        directoryName = 'views'
-        if 'directory' in settings:
-            directoryName = settings['directory']
+        directoryName = "views"
+        if "directory" in settings:
+            directoryName = settings["directory"]
 
         if res.isDirectory(directoryName):
             viewsDir = res[directoryName]
 
             layer = getattr(schemata, theme, None)
 
-            if 'layer' in settings:
-                layerName = settings['layer']
+            if "layer" in settings:
+                layerName = settings["layer"]
 
                 try:
                     layer = resolve(layerName)
@@ -114,7 +114,7 @@ class ViewsPlugin(object):
                     continue
 
                 name = viewName = filename[:-3]
-                permission = 'zope2.View'
+                permission = "zope2.View"
                 for_ = Interface
                 class_ = None
                 template = os.path.join(path, filename)
@@ -123,23 +123,23 @@ class ViewsPlugin(object):
                 # Read override options from views.cfg if applicable
                 if viewConfig.has_section(name):
 
-                    if viewConfig.has_option(name, 'name'):
-                        viewName = viewConfig.get(name, 'name')
+                    if viewConfig.has_option(name, "name"):
+                        viewName = viewConfig.get(name, "name")
 
-                    if viewConfig.has_option(name, 'permission'):
-                        permission = viewConfig.get(name, 'permission')
+                    if viewConfig.has_option(name, "permission"):
+                        permission = viewConfig.get(name, "permission")
 
-                    if viewConfig.has_option(name, 'for'):
-                        forStr = viewConfig.get(name, 'for')
+                    if viewConfig.has_option(name, "for"):
+                        forStr = viewConfig.get(name, "for")
                         if forStr != "*":
                             for_ = resolve(forStr)
 
-                    if viewConfig.has_option(name, 'class'):
-                        class_ = resolve(viewConfig.get(name, 'class'))
+                    if viewConfig.has_option(name, "class"):
+                        class_ = resolve(viewConfig.get(name, "class"))
 
-                    if viewConfig.has_option(name, 'menu'):
+                    if viewConfig.has_option(name, "menu"):
                         menu = dict(
-                            title=viewConfig.get(name, 'menu'),
+                            title=viewConfig.get(name, "menu"),
                             menu=getattr(
                                 zope.browsermenu.metaconfigure.menus,
                                 "plone_displayviews",
@@ -154,7 +154,7 @@ class ViewsPlugin(object):
                     layer=layer,
                     template=template,
                     class_=class_,
-                    **menu
+                    **menu,
                 )
 
                 views.append(name)

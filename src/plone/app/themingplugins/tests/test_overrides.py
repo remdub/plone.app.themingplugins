@@ -21,13 +21,11 @@ class TestCase(unittest.TestCase):
         self.settings = getUtility(IRegistry).forInterface(IThemeSettings)
 
         self.settings.enabled = False
-        self.settings.rules = (
-            u'python://plone.app.themingplugins/tests/rules.xml'
-        )
+        self.settings.rules = "python://plone.app.themingplugins/tests/rules.xml"
         self.settings.parameterExpressions = {
-            'stringParam': 'string:string param value',
-            'boolParam': 'python:False',
-            'requestParam': 'request/useother | string:off',
+            "stringParam": "string:string param value",
+            "boolParam": "python:False",
+            "requestParam": "request/useother | string:off",
         }
 
         import transaction
@@ -43,14 +41,14 @@ class TestCase(unittest.TestCase):
         return expr(ec)
 
     def test_overrides_plugin_enabled(self):
-        app = self.layer['app']
-        portal = self.layer['portal']
+        app = self.layer["app"]
+        portal = self.layer["portal"]
 
         self.settings.enabled = True
         self.settings.rules = (
-            u'/++theme++plone.app.themingplugins.tests/overridesrules.xml'
+            "/++theme++plone.app.themingplugins.tests/overridesrules.xml"
         )
-        self.settings.currentTheme = u"plone.app.themingplugins.tests"
+        self.settings.currentTheme = "plone.app.themingplugins.tests"
         import transaction
 
         transaction.commit()
@@ -71,14 +69,14 @@ class TestCase(unittest.TestCase):
         self.assertTrue("Powered by Diazo" in browser.contents)
 
     def test_overrides_plugin_disabled(self):
-        app = self.layer['app']
-        portal = self.layer['portal']
+        app = self.layer["app"]
+        portal = self.layer["portal"]
 
         self.settings.enabled = False
         self.settings.rules = (
-            u'/++theme++plone.app.themingplugins.tests/overridesrules.xml'
+            "/++theme++plone.app.themingplugins.tests/overridesrules.xml"
         )
-        self.settings.currentTheme = u"plone.app.themingplugins.tests"
+        self.settings.currentTheme = "plone.app.themingplugins.tests"
         import transaction
 
         transaction.commit()

@@ -24,11 +24,11 @@ class TestCase(unittest.TestCase):
         self.settings = getUtility(IRegistry).forInterface(IThemeSettings)
 
         self.settings.enabled = False
-        self.settings.rules = u'python://plone.app.theming/tests/rules.xml'
+        self.settings.rules = "python://plone.app.theming/tests/rules.xml"
         self.settings.parameterExpressions = {
-            'stringParam': 'string:string param value',
-            'boolParam': 'python:False',
-            'requestParam': 'request/useother | string:off',
+            "stringParam": "string:string param value",
+            "boolParam": "python:False",
+            "requestParam": "request/useother | string:off",
         }
 
         import transaction
@@ -44,14 +44,12 @@ class TestCase(unittest.TestCase):
         return expr(ec)
 
     def test_views_plugin_default(self):
-        app = self.layer['app']
-        portal = self.layer['portal']
+        app = self.layer["app"]
+        portal = self.layer["portal"]
 
         self.settings.enabled = True
-        self.settings.rules = (
-            u'/++theme++plone.app.themingplugins.tests/rules.xml'
-        )
-        self.settings.currentTheme = u"plone.app.themingplugins.tests"
+        self.settings.rules = "/++theme++plone.app.themingplugins.tests/rules.xml"
+        self.settings.currentTheme = "plone.app.themingplugins.tests"
         import transaction
 
         transaction.commit()
@@ -63,14 +61,12 @@ class TestCase(unittest.TestCase):
         self.assertTrue("<div>Plone site</div>" in browser.contents)
 
     def test_views_plugin_disabled(self):
-        app = self.layer['app']
-        portal = self.layer['portal']
+        app = self.layer["app"]
+        portal = self.layer["portal"]
 
         self.settings.enabled = False
-        self.settings.rules = (
-            u'/++theme++plone.app.themingplugins.tests/rules.xml'
-        )
-        self.settings.currentTheme = u"plone.app.themingplugins.tests"
+        self.settings.rules = "/++theme++plone.app.themingplugins.tests/rules.xml"
+        self.settings.currentTheme = "plone.app.themingplugins.tests"
         import transaction
 
         transaction.commit()
@@ -85,14 +81,12 @@ class TestCase(unittest.TestCase):
             self.fail()
 
     def test_views_plugin_name(self):
-        app = self.layer['app']
-        portal = self.layer['portal']
+        app = self.layer["app"]
+        portal = self.layer["portal"]
 
         self.settings.enabled = True
-        self.settings.rules = (
-            u'/++theme++plone.app.themingplugins.tests/rules.xml'
-        )
-        self.settings.currentTheme = u"plone.app.themingplugins.tests"
+        self.settings.rules = "/++theme++plone.app.themingplugins.tests/rules.xml"
+        self.settings.currentTheme = "plone.app.themingplugins.tests"
         import transaction
 
         transaction.commit()
@@ -104,18 +98,16 @@ class TestCase(unittest.TestCase):
         self.assertTrue("<div>Plone site</div>" in browser.contents)
 
     def test_views_plugin_context(self):
-        app = self.layer['app']
-        portal = self.layer['portal']
+        app = self.layer["app"]
+        portal = self.layer["portal"]
 
-        setRoles(portal, TEST_USER_ID, ('Manager',))
-        portal.invokeFactory('Folder', 'f1', title=u"Folder 1")
-        setRoles(portal, TEST_USER_ID, ('Member',))
+        setRoles(portal, TEST_USER_ID, ("Manager",))
+        portal.invokeFactory("Folder", "f1", title="Folder 1")
+        setRoles(portal, TEST_USER_ID, ("Member",))
 
         self.settings.enabled = True
-        self.settings.rules = (
-            u'/++theme++plone.app.themingplugins.tests/rules.xml'
-        )
-        self.settings.currentTheme = u"plone.app.themingplugins.tests"
+        self.settings.rules = "/++theme++plone.app.themingplugins.tests/rules.xml"
+        self.settings.currentTheme = "plone.app.themingplugins.tests"
         import transaction
 
         transaction.commit()
@@ -134,14 +126,12 @@ class TestCase(unittest.TestCase):
             self.fail()
 
     def test_views_plugin_class(self):
-        app = self.layer['app']
-        portal = self.layer['portal']
+        app = self.layer["app"]
+        portal = self.layer["portal"]
 
         self.settings.enabled = True
-        self.settings.rules = (
-            u'/++theme++plone.app.themingplugins.tests/rules.xml'
-        )
-        self.settings.currentTheme = u"plone.app.themingplugins.tests"
+        self.settings.rules = "/++theme++plone.app.themingplugins.tests/rules.xml"
+        self.settings.currentTheme = "plone.app.themingplugins.tests"
         import transaction
 
         transaction.commit()
@@ -152,19 +142,16 @@ class TestCase(unittest.TestCase):
         self.assertTrue("<h1>Class view</h1>" in browser.contents)
         self.assertTrue("<div>Plone site</div>" in browser.contents)
         self.assertTrue(
-            "<div>%s/@@class-view</div>" % portal.absolute_url()
-            in browser.contents
+            "<div>%s/@@class-view</div>" % portal.absolute_url() in browser.contents
         )
 
     def test_views_plugin_permission(self):
-        app = self.layer['app']
-        portal = self.layer['portal']
+        app = self.layer["app"]
+        portal = self.layer["portal"]
 
         self.settings.enabled = True
-        self.settings.rules = (
-            u'/++theme++plone.app.themingplugins.tests/rules.xml'
-        )
-        self.settings.currentTheme = u"plone.app.themingplugins.tests"
+        self.settings.rules = "/++theme++plone.app.themingplugins.tests/rules.xml"
+        self.settings.currentTheme = "plone.app.themingplugins.tests"
         import transaction
 
         transaction.commit()
@@ -172,10 +159,10 @@ class TestCase(unittest.TestCase):
         browser = Browser(app)
 
         browser.open(portal.absolute_url() + "/@@permission-view")
-        self.assertIn('login', browser.url)
+        self.assertIn("login", browser.url)
 
         # Don't try this at home, kids
-        portal.manage_permission('Manage portal', ['Anonymous'], acquire=False)
+        portal.manage_permission("Manage portal", ["Anonymous"], acquire=False)
         import transaction
 
         transaction.commit()
