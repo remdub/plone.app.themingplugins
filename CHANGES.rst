@@ -1,10 +1,18 @@
 Changelog
 =========
 
-1.3 (unreleased)
-----------------
+2.0.0 (unreleased)
+------------------
 
-- Declare support for Python 3.13 and 3.14 in classifiers.
+Breaking changes:
+
+- Drop support for Python 2 and Plone 4/5. Supported: Plone 6.0-6.3,
+  Python 3.9+.
+  [remdub]
+
+- Replace ``pkg_resources`` namespace with PEP 420 native namespace,
+  move to a ``src`` layout and move package metadata from ``setup.py``
+  to ``pyproject.toml``.
   [remdub]
 
 

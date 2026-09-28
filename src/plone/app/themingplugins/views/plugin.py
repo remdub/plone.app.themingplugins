@@ -11,7 +11,7 @@ import logging
 import os.path
 import Products.Five.browser.metaconfigure
 import zope.browsermenu.metaconfigure
-from six.moves.configparser import ConfigParser
+from configparser import ConfigParser
 
 EXTENSION = ".pt"
 VIEW_CONFIG_FILENAME = "views.cfg"

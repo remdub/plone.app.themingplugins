@@ -1,16 +1,16 @@
+from App.config import getConfiguration
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.theming.interfaces import IThemeSettings
 from plone.app.themingplugins.testing import THEMINGPLUGINS_FUNCTIONAL_TESTING
 from plone.registry.interfaces import IRegistry
-from plone.testing.z2 import Browser
+from plone.testing.zope import Browser
 from Products.CMFCore.Expression import Expression
 from Products.CMFCore.Expression import getExprContext
-from urllib2 import HTTPError
+from urllib.error import HTTPError
 from zope.component import getUtility
 
-import Globals
-import unittest2 as unittest
+import unittest
 
 
 class TestCase(unittest.TestCase):
@@ -19,7 +19,7 @@ class TestCase(unittest.TestCase):
 
     def setUp(self):
         # Enable debug mode always to ensure cache is disabled by default
-        Globals.DevelopmentMode = True
+        getConfiguration().debug_mode = True
 
         self.settings = getUtility(IRegistry).forInterface(IThemeSettings)
 
@@ -36,7 +36,7 @@ class TestCase(unittest.TestCase):
         transaction.commit()
 
     def tearDown(self):
-        Globals.DevelopmentMode = False
+        getConfiguration().debug_mode = False
 
     def evaluate(self, context, expression):
         ec = getExprContext(context, context)
@@ -172,7 +172,7 @@ class TestCase(unittest.TestCase):
         browser = Browser(app)
 
         browser.open(portal.absolute_url() + "/@@permission-view")
-        self.assertTrue('require_login' in browser.url)
+        self.assertIn('login', browser.url)
 
         # Don't try this at home, kids
         portal.manage_permission('Manage portal', ['Anonymous'], acquire=False)

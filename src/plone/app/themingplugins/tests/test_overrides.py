@@ -1,13 +1,13 @@
+from App.config import getConfiguration
 from plone.app.theming.interfaces import IThemeSettings
 from plone.app.themingplugins.testing import THEMINGPLUGINS_FUNCTIONAL_TESTING
 from plone.registry.interfaces import IRegistry
-from plone.testing.z2 import Browser
+from plone.testing.zope import Browser
 from Products.CMFCore.Expression import Expression
 from Products.CMFCore.Expression import getExprContext
 from zope.component import getUtility
 
-import Globals
-import unittest2 as unittest
+import unittest
 
 
 class TestCase(unittest.TestCase):
@@ -16,7 +16,7 @@ class TestCase(unittest.TestCase):
 
     def setUp(self):
         # Enable debug mode always to ensure cache is disabled by default
-        Globals.DevelopmentMode = True
+        getConfiguration().debug_mode = True
 
         self.settings = getUtility(IRegistry).forInterface(IThemeSettings)
 
@@ -35,7 +35,7 @@ class TestCase(unittest.TestCase):
         transaction.commit()
 
     def tearDown(self):
-        Globals.DevelopmentMode = False
+        getConfiguration().debug_mode = False
 
     def evaluate(self, context, expression):
         ec = getExprContext(context, context)

@@ -4,3 +4,8 @@
 [meta]
 template = "default"
 commit-id = "2.11.1"
+
+[gitignore]
+extra_lines = """
+.venv
+"""

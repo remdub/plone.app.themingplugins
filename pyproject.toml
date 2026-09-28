@@ -4,7 +4,70 @@
 [build-system]
 requires = ["setuptools>=68.2,<83", "wheel"]
 
+# START-MARKER-MANUAL-CONFIG
+# Anything from here until END-MARKER-MANUAL-CONFIG
+# will be kept by plone.meta
+[project]
+name = "plone.app.themingplugins"
+version = "2.0.0.dev0"
+description = "Plugins providing advanced plone.app.theming integration"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: Plone",
+    "Framework :: Plone :: 6.0",
+    "Framework :: Plone :: 6.1",
+    "Framework :: Plone :: 6.2",
+    "Framework :: Plone :: 6.3",
+    "Framework :: Plone :: Addon",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+license = "GPL-2.0-only"
+requires-python = ">=3.9"
+authors = [
+    {name = "Martin Aspeli", email = "optilude@gmail.com"},
+]
+keywords = ["plone.app.theming", "diazo", "jbot", "views"]
+dynamic = ["readme"]
+dependencies = [
+    "plone.app.theming",
+    "plone.resource",
+    "z3c.jbot",
+    "Zope",
+    "zope.browsermenu",
+    "zope.configuration",
+    "zope.dottedname",
+    "zope.interface",
+]
 
+[project.optional-dependencies]
+test = [
+    "plone.app.testing",
+    "plone.registry",
+    "plone.testing",
+    "Products.CMFCore",
+    "transaction",
+    "zope.component",
+]
+
+[project.urls]
+Source = "https://github.com/plone/plone.app.themingplugins"
+Issues = "https://github.com/plone/plone.app.themingplugins/issues"
+Changelog = "https://github.com/plone/plone.app.themingplugins/blob/master/CHANGES.rst"
+
+[project.entry-points."plone.autoinclude.plugin"]
+target = "plone"
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.rst", "CHANGES.rst"]}
+# END-MARKER-MANUAL-CONFIG
 
 ##
 # Add extra configuration options in .meta.toml:
